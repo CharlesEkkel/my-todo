@@ -4,7 +4,11 @@ import { Task, TaskInfo, basicTask } from "./components/Task";
 import { Listbox } from "@headlessui/react";
 
 function App() {
-  const [tasks, setTasks] = useState([basicTask, basicTask, basicTask]);
+  const [tasks, setTasks] = useState([
+    basicTask(1),
+    basicTask(2, "First"),
+    basicTask(3, "Next"),
+  ]);
   const [sortMethod, setSortMethod] = useState("creation");
 
   const removeTask = (task: TaskInfo) =>
@@ -16,9 +20,12 @@ function App() {
   const setSort = (newMethod: SortingMethod) => {
     setSortMethod(newMethod);
 
-    if (newMethod === "creation") tasks.sort((a, b) => (a.id < b.id ? 1 : -1));
+    if (newMethod === "creation")
+      setTasks([...tasks].sort((a, b) => (a.id > b.id ? 1 : -1)));
     else if (newMethod === "alphabetical")
-      tasks.sort((a, b) => (a.description < b.description ? 1 : -1));
+      setTasks(
+        [...tasks].sort((a, b) => (a.description > b.description ? 1 : -1))
+      );
   };
 
   return (

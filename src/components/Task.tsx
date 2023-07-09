@@ -46,9 +46,9 @@ export interface TaskInfo {
   time: string;
 }
 
-export const basicTask: TaskInfo = {
-  id: 1,
-  description: "Unpack the Hello Fresh meals.",
+export const basicTask = (id: number, desc?: string): TaskInfo => ({
+  id: id,
+  description: desc ?? "Unpack the Hello Fresh meals.",
   date: "19/03/2021",
   time: "17:24",
-};
+});
