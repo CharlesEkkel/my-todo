@@ -1,14 +1,26 @@
+import { useId } from "react";
 import { TiTickOutline } from "react-icons/ti";
 
 interface TaskProps {
   onClickDone: () => void;
+  setTask: (info: TaskInfo) => void;
   info: TaskInfo;
 }
 
-export const Task = ({ onClickDone, info }: TaskProps) => {
+export const Task = ({ onClickDone, setTask, info }: TaskProps) => {
+  const taskId = useId();
+
   return (
-    <div className="flex relative flex-row items-center p-2 max-w-md rounded shadow">
-      <h2 className="flex-1 mr-4 text-left">{info.description}</h2>
+    <div className="flex relative flex-row items-center p-2 max-w-md bg-white rounded shadow">
+      <label htmlFor={taskId} className="sr-only">
+        Task Description:
+      </label>
+      <textarea
+        id={taskId}
+        className="flex-1 mr-4 text-left resize-none"
+        value={info.description}
+        onChange={(e) => setTask({ ...info, description: e.target.value })}
+      />
       <div className="flex flex-col mr-6 text-sm">
         <span className="sr-only">Due Date:</span>
         <p>{info.date}</p>
@@ -28,12 +40,14 @@ export const Task = ({ onClickDone, info }: TaskProps) => {
 };
 
 export interface TaskInfo {
+  id: number;
   description: string;
   date: string;
   time: string;
 }
 
 export const basicTask: TaskInfo = {
+  id: 1,
   description: "Unpack the Hello Fresh meals.",
   date: "19/03/2021",
   time: "17:24",
