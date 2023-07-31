@@ -22,6 +22,7 @@ export const NewTask = ({ createTask }: NewTaskProps) => {
     createTask({
       id: nextId,
       description: data.taskDesc,
+      isChecked: false,
     });
 
     setNextId(nextId + 1);

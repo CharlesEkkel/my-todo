@@ -14,19 +14,37 @@ function App() {
   const setTask = (task: TaskInfo) =>
     setTasks(tasks.map((x) => (x.id == task.id ? task : x)));
 
+  const toggleDone = (task: TaskInfo) =>
+    setTasks(
+      tasks.map((x) =>
+        x.id === task.id ? { ...x, isChecked: !x.isChecked } : x
+      )
+    );
+
   return (
     <main className="flex flex-col gap-2 mx-auto max-w-lg">
       <h1 className="text-2xl">todo</h1>
       <NewTask createTask={addTask} />
-      {tasks.map((task) => (
-        <Task
-          key={task.id}
-          info={task}
-          onClickDone={() => removeTask(task)}
-          onClickDelete={() => removeTask(task)}
-          setTask={setTask}
-        />
-      ))}
+      {tasks
+        .filter((x) => !x.isChecked)
+        .map((task) => (
+          <Task
+            key={task.id}
+            info={task}
+            onClickDone={() => toggleDone(task)}
+            onClickDelete={() => removeTask(task)}
+          />
+        ))}
+      {tasks
+        .filter((x) => x.isChecked)
+        .map((task) => (
+          <Task
+            key={task.id}
+            info={task}
+            onClickDone={() => toggleDone(task)}
+            onClickDelete={() => removeTask(task)}
+          />
+        ))}
     </main>
   );
 }
