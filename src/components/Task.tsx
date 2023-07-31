@@ -11,13 +11,13 @@ export const Task = ({ onClickDone, setTask, info }: TaskProps) => {
   const taskId = useId();
 
   return (
-    <div className="flex relative flex-row items-center p-2 max-w-md bg-white rounded shadow">
+    <div className="flex relative flex-row items-center p-2 w-full rounded shadow bg-card">
       <label htmlFor={taskId} className="sr-only">
         Task Description:
       </label>
       <textarea
         id={taskId}
-        className="flex-1 mr-4 text-left resize-none"
+        className="flex-1 mr-4 text-left bg-transparent resize-none"
         value={info.description}
         onChange={(e) => setTask({ ...info, description: e.target.value })}
       />
