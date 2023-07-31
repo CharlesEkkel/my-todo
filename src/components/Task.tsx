@@ -1,39 +1,34 @@
 import { useId } from "react";
-import { TiTickOutline } from "react-icons/ti";
+import { BsCircle, BsTrash, BsCheckCircleFill } from "react-icons/bs";
 
 interface TaskProps {
   onClickDone: () => void;
+  onClickDelete: () => void;
   setTask: (info: TaskInfo) => void;
   info: TaskInfo;
 }
 
-export const Task = ({ onClickDone, setTask, info }: TaskProps) => {
+export const Task = (props: TaskProps) => {
   const taskId = useId();
 
   return (
-    <div className="flex relative flex-row items-center p-2 w-full rounded shadow bg-card">
+    <div className="flex flex-row gap-2 items-center p-2 w-full rounded shadow justify-baseline bg-card">
+      <button className="w-5 h-5" onClick={props.onClickDone}>
+        <BsCircle aria-hidden className="w-full h-full stroke-0" />
+        <span className="sr-only">Mark as completed</span>
+      </button>
       <label htmlFor={taskId} className="sr-only">
         Task Description:
       </label>
-      <textarea
+      <p
         id={taskId}
         className="flex-1 mr-4 text-left bg-transparent resize-none"
-        value={info.description}
-        onChange={(e) => setTask({ ...info, description: e.target.value })}
-      />
-      <div className="flex flex-col mr-6 text-sm">
-        <span className="sr-only">Due Date:</span>
-        <p>{info.date}</p>
-        <span className="sr-only">Due Time:</span>
-        <p>{info.time}</p>
-      </div>
-      <button
-        className="absolute right-1 bottom-1 w-6 h-6"
-        onClick={onClickDone}
-        title="Mark as completed"
       >
-        <TiTickOutline aria-hidden className="w-full h-full stroke-0" />
-        <span className="sr-only">Mark as completed</span>
+        {props.info.description}
+      </p>
+      <button className="w-5 h-5" onClick={props.onClickDelete}>
+        <BsTrash aria-hidden className="w-full h-full stroke-0" />
+        <span className="sr-only">Delete Task</span>
       </button>
     </div>
   );
@@ -42,13 +37,4 @@ export const Task = ({ onClickDone, setTask, info }: TaskProps) => {
 export interface TaskInfo {
   id: number;
   description: string;
-  date: string;
-  time: string;
 }
-
-export const basicTask = (id: number, desc?: string): TaskInfo => ({
-  id: id,
-  description: desc ?? "Unpack the Hello Fresh meals.",
-  date: "19/03/2021",
-  time: "17:24",
-});
