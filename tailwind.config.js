@@ -5,11 +5,22 @@ export default {
   theme: {
     colors: {
       transparent: colors.transparent,
-      active: colors.violet[500],
-      focused: colors.violet[200],
-      card: colors.sky[50],
-      button: colors.sky[50],
-      app: colors.sky[50],
+      danger: "E25858",
+      grey100: "#F2F2F2",
+      grey200: "#D9D9D9",
+      grey300: "#808080",
+      grey400: "#333333",
+      grey500: "#262626",
+      grey600: "#1A1A1A",
+      grey700: "#0D0D0D",
+      purple: {
+        DEFAULT: "#8284FA",
+        dark: "#5E60CE",
+      },
+      blue: {
+        DEFAULT: "#4EA8DE",
+        dark: "#1E7F9F",
+      },
     },
   },
   plugins: [],

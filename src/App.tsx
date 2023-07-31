@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./App.css";
 import { Task, TaskInfo } from "./components/Task";
 import { NewTask } from "./components/NewTask";
 
@@ -22,30 +21,34 @@ function App() {
     );
 
   return (
-    <main className="flex flex-col gap-2 mx-auto max-w-lg">
-      <h1 className="text-2xl">todo</h1>
-      <NewTask createTask={addTask} />
-      {tasks
-        .filter((x) => !x.isChecked)
-        .map((task) => (
-          <Task
-            key={task.id}
-            info={task}
-            onClickDone={() => toggleDone(task)}
-            onClickDelete={() => removeTask(task)}
-          />
-        ))}
-      {tasks
-        .filter((x) => x.isChecked)
-        .map((task) => (
-          <Task
-            key={task.id}
-            info={task}
-            onClickDone={() => toggleDone(task)}
-            onClickDelete={() => removeTask(task)}
-          />
-        ))}
-    </main>
+    <div className="h-screen">
+      <header className="flex items-center justify-center w-screen h-1/4 bg-grey700">
+        <h1 className="text-2xl text-grey100">todo</h1>
+      </header>
+      <main className="flex flex-col gap-2 mx-auto -mt-7 max-w-lg">
+        <NewTask createTask={addTask} />
+        {tasks
+          .filter((x) => !x.isChecked)
+          .map((task) => (
+            <Task
+              key={task.id}
+              info={task}
+              onClickDone={() => toggleDone(task)}
+              onClickDelete={() => removeTask(task)}
+            />
+          ))}
+        {tasks
+          .filter((x) => x.isChecked)
+          .map((task) => (
+            <Task
+              key={task.id}
+              info={task}
+              onClickDone={() => toggleDone(task)}
+              onClickDelete={() => removeTask(task)}
+            />
+          ))}
+      </main>
+    </div>
   );
 }
 
