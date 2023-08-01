@@ -1,12 +1,12 @@
 export const EmptyPage = () => (
-  <div className="flex flex-col items-center">
+  <div className="flex flex-col items-center text-grey200">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="currentColor"
-      className="w-6 h-6"
+      className="mb-4 w-14 h-14 stroke-grey400"
+      aria-hidden="true"
     >
       <path
         strokeLinecap="round"
@@ -15,6 +15,6 @@ export const EmptyPage = () => (
       />
     </svg>
     <strong>You don't have any tasks</strong>
-    <p>Use the text box above to create a new one</p>
+    <p>Try using the text box above to create a new one</p>
   </div>
 );

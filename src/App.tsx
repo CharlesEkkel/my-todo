@@ -30,7 +30,7 @@ function App() {
           id="allTasks"
           className="flex flex-col gap-3 justify-between mt-12"
         >
-          <div className="flex flex-row gap-2 items-center mb-4">
+          <div className="flex flex-row gap-2 items-center mb-2">
             <h2 className="font-bold text-blue">All Tasks</h2>
             <Pill hidden value={String(tasks.length)} />
             <div className="flex-1" />
@@ -41,7 +41,12 @@ function App() {
               }`}
             />
           </div>
-          {tasks.length === 0 && <EmptyPage />}
+          {tasks.length === 0 && (
+            <>
+              <hr className="mb-8 text-grey400" />
+              <EmptyPage />
+            </>
+          )}
           {tasks
             .filter((x) => !x.isChecked)
             .map((task) => (
