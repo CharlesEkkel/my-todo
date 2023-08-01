@@ -28,9 +28,9 @@ function App() {
         <NewTask createTask={addTask} />
         <section
           id="allTasks"
-          className="flex flex-col gap-3 justify-between mt-12"
+          className="flex flex-col gap-3 justify-between mt-16"
         >
-          <div className="flex flex-row gap-2 items-center mb-2">
+          <div className="flex flex-row gap-2 items-center mb-4">
             <h2 className="font-bold text-blue">All Tasks</h2>
             <Pill hidden value={String(tasks.length)} />
             <div className="flex-1" />
@@ -43,7 +43,7 @@ function App() {
           </div>
           {tasks.length === 0 && (
             <>
-              <hr className="mb-8 text-grey400" />
+              <hr className="mb-12 text-grey400" />
               <EmptyPage />
             </>
           )}
