@@ -65,7 +65,7 @@ export const Task = (props: TaskProps) => {
         {props.info.description}
       </p>
       <button
-        className="p-1 m-3 w-6 h-6 rounded hover:bg-grey600"
+        className="p-1 m-3 w-6 h-6 rounded hover:transition hover:bg-grey600"
         onClick={props.onClickDelete}
       >
         <svg
