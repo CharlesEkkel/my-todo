@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { TaskInfo } from "./Task";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { BsPlusCircle } from "react-icons/bs";
 
 type NewTaskProps = {
   createTask: (t: TaskInfo) => void;
@@ -46,10 +45,24 @@ export const NewTask = ({ createTask }: NewTaskProps) => {
       />
       {errors.taskDesc && <span>Task description is required</span>}
       <button
-        className="flex flex-row gap-2 items-center p-4 text-white rounded-lg bg-blue-dark"
+        className="flex flex-row gap-1 items-center p-4 text-white rounded-lg bg-blue-dark"
         type="submit"
       >
-        Create <BsPlusCircle className="stroke-[0.5]" />
+        Create
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          className="w-6 h-6 stroke-white"
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
       </button>
     </form>
   );
