@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Task, TaskInfo } from "./components/Task";
 import { NewTask } from "./components/NewTask";
 import { Pill } from "./components/Pill";
+import { EmptyPage } from "./components/EmptyPage";
 
 function App() {
   const [tasks, setTasks] = useState<TaskInfo[]>([]);
@@ -40,6 +41,7 @@ function App() {
               }`}
             />
           </div>
+          {tasks.length === 0 && <EmptyPage />}
           {tasks
             .filter((x) => !x.isChecked)
             .map((task) => (
