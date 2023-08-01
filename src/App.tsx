@@ -25,12 +25,15 @@ function App() {
       </header>
       <main className="flex flex-col gap-2 mx-auto -mt-7 max-w-lg">
         <NewTask createTask={addTask} />
-        <section id="allTasks" className="mt-12">
-          <div className="flex flex-row gap-2 items-center">
-            <h2 className="text-blue">All Tasks</h2>
-            <Pill value={String(tasks.length)} />
+        <section
+          id="allTasks"
+          className="flex flex-col gap-3 justify-between mt-12"
+        >
+          <div className="flex flex-row gap-2 items-center mb-4">
+            <h2 className="font-bold text-blue">All Tasks</h2>
+            <Pill hidden value={String(tasks.length)} />
             <div className="flex-1" />
-            <span className="text-purple">Completed: </span>
+            <span className="font-bold text-purple">Completed</span>
             <Pill
               value={`${tasks.filter((x) => x.isChecked).length} of ${
                 tasks.length

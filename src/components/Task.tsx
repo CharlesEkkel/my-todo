@@ -11,16 +11,22 @@ export const Task = (props: TaskProps) => {
   const taskId = useId();
 
   return (
-    <div className="flex flex-row gap-3 items-start p-2 w-full rounded shadow justify-baseline bg-card">
+    <div className="flex flex-row gap-4 items-start p-4 w-full rounded border shadow justify-baseline bg-grey500 border-grey400">
       <button className="mt-1 w-4 h-4" onClick={props.onClickDone}>
         {props.info.isChecked ? (
           <>
-            <BsCheckCircleFill aria-hidden className="w-full h-full stroke-0" />
+            <BsCheckCircleFill
+              aria-hidden
+              className="w-full h-full stroke-[0.5] text-purple"
+            />
             <span className="sr-only">Unmark this task as completed</span>
           </>
         ) : (
           <>
-            <BsCircle aria-hidden className="w-full h-full stroke-0" />
+            <BsCircle
+              aria-hidden
+              className="w-full h-full stroke-[0.5] text-blue"
+            />
             <span className="sr-only">Mark this task as completed</span>
           </>
         )}
@@ -28,7 +34,12 @@ export const Task = (props: TaskProps) => {
       <label htmlFor={taskId} className="sr-only">
         Task Description:
       </label>
-      <p id={taskId} className="flex-1 mr-4 text-left">
+      <p
+        id={taskId}
+        className={`flex-1 mr-4 text-left ${
+          props.info.isChecked && "line-through text-grey300"
+        }`}
+      >
         {props.info.description}
       </p>
       <button className="mt-1 w-4 h-4" onClick={props.onClickDelete}>
