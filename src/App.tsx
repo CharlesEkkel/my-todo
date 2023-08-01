@@ -22,9 +22,12 @@ function App() {
   return (
     <div className="h-screen text-grey100">
       <header className="flex items-center justify-center w-screen h-1/4 bg-grey700">
-        <h1 className="text-2xl text-white">todo</h1>
+        <h1 className="mb-6 text-5xl font-bold text-white">
+          <span className="text-blue">to</span>
+          <span className="text-purple">do</span>
+        </h1>
       </header>
-      <main className="flex flex-col gap-2 mx-auto -mt-7 max-w-lg">
+      <main className="flex flex-col gap-2 px-2 mx-auto max-w-lg">
         <NewTask createTask={addTask} />
         <section
           id="allTasks"
