@@ -6,6 +6,7 @@ export default {
     colors: {
       transparent: colors.transparent,
       danger: "E25858",
+      white: "#FFFFFF",
       grey100: "#F2F2F2",
       grey200: "#D9D9D9",
       grey300: "#808080",

@@ -38,7 +38,7 @@ export const NewTask = ({ createTask }: NewTaskProps) => {
         Task Description:
       </label>
       <input
-        className="flex-1 p-3 rounded-lg border text-grey300 bg-grey500 border-grey700"
+        className="flex-1 p-3 rounded-lg border text-grey100 bg-grey500 border-grey700"
         type="text"
         id="taskDesc"
         placeholder="What's your next task?"
@@ -46,7 +46,7 @@ export const NewTask = ({ createTask }: NewTaskProps) => {
       />
       {errors.taskDesc && <span>Task description is required</span>}
       <button
-        className="flex flex-row gap-2 items-center p-4 rounded-lg bg-blue-dark text-grey100"
+        className="flex flex-row gap-2 items-center p-4 text-white rounded-lg bg-blue-dark"
         type="submit"
       >
         Create <BsPlusCircle className="stroke-[0.5]" />
