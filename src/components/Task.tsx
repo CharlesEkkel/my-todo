@@ -13,8 +13,8 @@ export const Task = (props: TaskProps) => {
   const trashId = useId();
 
   return (
-    <div className="flex flex-row gap-4 items-start p-4 w-full rounded border shadow justify-baseline bg-grey500 border-grey400">
-      <button className="mt-1 w-4 h-4" onClick={props.onClickDone}>
+    <div className="flex flex-row items-start w-full rounded border shadow justify-baseline bg-grey500 border-grey400">
+      <button className="m-4 w-4 h-4" onClick={props.onClickDone}>
         {props.info.isChecked ? (
           <>
             <div className="p-0.5 rounded-full bg-purple">
@@ -44,7 +44,7 @@ export const Task = (props: TaskProps) => {
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={2}
-              className="w-full h-full stroke-blue"
+              className="w-full h-full stroke-blue hover:fill-blue-dark"
               aria-labelledby={markId}
             >
               <title id={markId}>Mark this task as completed</title>
@@ -58,13 +58,16 @@ export const Task = (props: TaskProps) => {
       </label>
       <p
         id={taskId}
-        className={`flex-1 mr-4 text-left ${
+        className={`flex-1 mt-3 mb-3 text-left ${
           props.info.isChecked && "line-through text-purple"
         }`}
       >
         {props.info.description}
       </p>
-      <button className="mt-1 w-4 h-4" onClick={props.onClickDelete}>
+      <button
+        className="p-1 m-3 w-6 h-6 rounded hover:bg-grey600"
+        onClick={props.onClickDelete}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

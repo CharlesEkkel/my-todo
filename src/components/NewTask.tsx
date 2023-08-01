@@ -45,7 +45,7 @@ export const NewTask = ({ createTask }: NewTaskProps) => {
       />
       {errors.taskDesc && <span>Task description is required</span>}
       <button
-        className="flex flex-row gap-1 items-center p-4 text-white rounded-lg bg-blue-dark"
+        className="flex flex-row gap-1 items-center p-4 text-white rounded-lg bg-blue-dark hover:bg-blue"
         type="submit"
       >
         Create
