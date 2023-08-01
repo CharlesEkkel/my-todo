@@ -37,7 +37,7 @@ export const Task = (props: TaskProps) => {
       <p
         id={taskId}
         className={`flex-1 mr-4 text-left ${
-          props.info.isChecked && "line-through text-grey300"
+          props.info.isChecked && "line-through text-purple"
         }`}
       >
         {props.info.description}
