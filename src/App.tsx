@@ -1,86 +1,69 @@
-import { Fragment, useState } from "react";
-import "./App.css";
-import { Task, TaskInfo, basicTask } from "./components/Task";
-import { Listbox } from "@headlessui/react";
+import { useState } from "react";
+import { Task, TaskInfo } from "./components/Task";
+import { NewTask } from "./components/NewTask";
+import { Pill } from "./components/Pill";
 
 function App() {
-  const [tasks, setTasks] = useState([
-    basicTask(1),
-    basicTask(2, "First"),
-    basicTask(3, "Next"),
-  ]);
-  const [sortMethod, setSortMethod] = useState("creation");
+  const [tasks, setTasks] = useState<TaskInfo[]>([]);
+
+  const addTask = (newTask: TaskInfo) => setTasks([...tasks, newTask]);
 
   const removeTask = (task: TaskInfo) =>
     setTasks(tasks.filter((x) => x.id !== task.id));
 
-  const setTask = (task: TaskInfo) =>
-    setTasks(tasks.map((x) => (x.id == task.id ? task : x)));
-
-  const setSort = (newMethod: SortingMethod) => {
-    setSortMethod(newMethod);
-
-    if (newMethod === "creation")
-      setTasks([...tasks].sort((a, b) => (a.id > b.id ? 1 : -1)));
-    else if (newMethod === "alphabetical")
-      setTasks(
-        [...tasks].sort((a, b) => (a.description > b.description ? 1 : -1))
-      );
-  };
+  const toggleDone = (task: TaskInfo) =>
+    setTasks(
+      tasks.map((x) =>
+        x.id === task.id ? { ...x, isChecked: !x.isChecked } : x
+      )
+    );
 
   return (
-    <main className="flex flex-col gap-2 mx-auto max-w-lg">
-      <div className="flex flex-row justify-between items-baseline mb-4 w-full">
-        <span className="w-36" />
-        <h1 className="text-2xl">Todo</h1>
-        <SortSelector value={sortMethod} setSortingMethod={setSort} />
-      </div>
-      {tasks.map((task) => (
-        <Task
-          key={task.id}
-          info={task}
-          onClickDone={() => removeTask(task)}
-          setTask={setTask}
-        />
-      ))}
-    </main>
+    <div className="h-screen text-grey100">
+      <header className="flex items-center justify-center w-screen h-1/4 bg-grey700">
+        <h1 className="text-2xl text-white">todo</h1>
+      </header>
+      <main className="flex flex-col gap-2 mx-auto -mt-7 max-w-lg">
+        <NewTask createTask={addTask} />
+        <section
+          id="allTasks"
+          className="flex flex-col gap-3 justify-between mt-12"
+        >
+          <div className="flex flex-row gap-2 items-center mb-4">
+            <h2 className="font-bold text-blue">All Tasks</h2>
+            <Pill hidden value={String(tasks.length)} />
+            <div className="flex-1" />
+            <span className="font-bold text-purple">Completed</span>
+            <Pill
+              value={`${tasks.filter((x) => x.isChecked).length} of ${
+                tasks.length
+              }`}
+            />
+          </div>
+          {tasks
+            .filter((x) => !x.isChecked)
+            .map((task) => (
+              <Task
+                key={task.id}
+                info={task}
+                onClickDone={() => toggleDone(task)}
+                onClickDelete={() => removeTask(task)}
+              />
+            ))}
+          {tasks
+            .filter((x) => x.isChecked)
+            .map((task) => (
+              <Task
+                key={task.id}
+                info={task}
+                onClickDone={() => toggleDone(task)}
+                onClickDelete={() => removeTask(task)}
+              />
+            ))}
+        </section>
+      </main>
+    </div>
   );
 }
 
 export default App;
-
-type SortingMethod = "creation" | "alphabetical";
-
-interface SortSelectorProps {
-  value: string;
-  setSortingMethod: (method: SortingMethod) => void;
-}
-
-const SortSelector = (props: SortSelectorProps) => (
-  <Listbox value={props.value} onChange={props.setSortingMethod}>
-    <div className="relative w-36">
-      <Listbox.Button className="p-1 text-sm rounded-lg shadow transition-shadow hover:shadow-md active:shadow-none bg-button">
-        Sort by: {props.value}
-      </Listbox.Button>
-      <Listbox.Options className="absolute z-10 mt-1 w-full rounded shadow transition ease-in-out bg-button max-h-sm">
-        {["creation", "alphabetical"].map((method) => (
-          <Listbox.Option key={method} value={method} as={Fragment}>
-            {({ active, selected }) => (
-              <li
-                className={`z-20 w-full ${
-                  active
-                    ? "bg-active"
-                    : selected
-                    ? "bg-slate-500"
-                    : "bg-current"
-                } rounded`}
-              >
-                {method}
-              </li>
-            )}
-          </Listbox.Option>
-        ))}
-      </Listbox.Options>
-    </div>
-  </Listbox>
-);
