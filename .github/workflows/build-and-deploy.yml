@@ -40,7 +40,7 @@ jobs:
         run: yarn --frozen-lockfile install
 
       - name: Build production artifact
-        run: yarn build
+        run: yarn build --base=my-todo/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
