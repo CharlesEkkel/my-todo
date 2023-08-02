@@ -7,13 +7,19 @@ interface TaskProps {
 }
 
 export const Task = (props: TaskProps) => {
-  const taskId = useId();
   const unmarkId = useId();
   const markId = useId();
   const trashId = useId();
 
   return (
-    <div className="flex flex-row items-start w-full rounded border shadow justify-baseline bg-grey500 border-grey400">
+    <li
+      id={`task${props.info.id}`}
+      className={`flex flex-row items-start w-full rounded border shadow justify-baseline bg-grey500 border-grey400`}
+      style={{
+        // I tried doing this with tailwind's custom css syntax, but it causes an odd rendering artifact when the DOM changes.
+        viewTransitionName: `task-${props.info.id}`,
+      }}
+    >
       <button className="m-4 w-4 h-4" onClick={props.onClickDone}>
         {props.info.isChecked ? (
           <>
@@ -53,11 +59,8 @@ export const Task = (props: TaskProps) => {
           </>
         )}
       </button>
-      <label htmlFor={taskId} className="sr-only">
-        Task Description:
-      </label>
+      <span className="sr-only">Task Description:</span>
       <p
-        id={taskId}
         className={`flex-1 mt-3 mb-3 text-left ${
           props.info.isChecked && "line-through text-purple"
         }`}
@@ -65,7 +68,7 @@ export const Task = (props: TaskProps) => {
         {props.info.description}
       </p>
       <button
-        className="p-1 m-3 w-6 h-6 rounded hover:bg-grey600"
+        className="p-1 m-3 w-6 h-6 rounded hover:transition hover:bg-grey600"
         onClick={props.onClickDelete}
       >
         <svg
@@ -84,7 +87,7 @@ export const Task = (props: TaskProps) => {
           />
         </svg>
       </button>
-    </div>
+    </li>
   );
 };
 
