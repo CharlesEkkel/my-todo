@@ -13,7 +13,7 @@ export const Task = (props: TaskProps) => {
   const trashId = useId();
 
   return (
-    <div className="flex flex-row items-start w-full rounded border shadow justify-baseline bg-grey500 border-grey400">
+    <li className="flex flex-row items-start w-full rounded border shadow justify-baseline bg-grey500 border-grey400">
       <button className="m-4 w-4 h-4" onClick={props.onClickDone}>
         {props.info.isChecked ? (
           <>
@@ -84,7 +84,7 @@ export const Task = (props: TaskProps) => {
           />
         </svg>
       </button>
-    </div>
+    </li>
   );
 };
 

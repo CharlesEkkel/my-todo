@@ -44,32 +44,35 @@ function App() {
               }`}
             />
           </div>
-          {tasks.length === 0 && (
+          {tasks.length === 0 ? (
             <>
               <hr className="mb-12 text-grey400" />
               <EmptyPage />
             </>
+          ) : (
+            <ol>
+              {tasks
+                .filter((x) => !x.isChecked)
+                .map((task) => (
+                  <Task
+                    key={task.id}
+                    info={task}
+                    onClickDone={() => toggleDone(task)}
+                    onClickDelete={() => removeTask(task)}
+                  />
+                ))}
+              {tasks
+                .filter((x) => x.isChecked)
+                .map((task) => (
+                  <Task
+                    key={task.id}
+                    info={task}
+                    onClickDone={() => toggleDone(task)}
+                    onClickDelete={() => removeTask(task)}
+                  />
+                ))}
+            </ol>
           )}
-          {tasks
-            .filter((x) => !x.isChecked)
-            .map((task) => (
-              <Task
-                key={task.id}
-                info={task}
-                onClickDone={() => toggleDone(task)}
-                onClickDelete={() => removeTask(task)}
-              />
-            ))}
-          {tasks
-            .filter((x) => x.isChecked)
-            .map((task) => (
-              <Task
-                key={task.id}
-                info={task}
-                onClickDone={() => toggleDone(task)}
-                onClickDelete={() => removeTask(task)}
-              />
-            ))}
         </section>
       </main>
     </div>
