@@ -3,19 +3,44 @@ import { Task, TaskInfo } from "./components/Task";
 import { NewTask } from "./components/NewTask";
 import { Pill } from "./components/Pill";
 import { EmptyPage } from "./components/EmptyPage";
+import { flushSync } from "react-dom";
+
+/**
+ * Use the new 'View Transitions API' to animate changes in the contents and arrangement
+ * of the tasks list!
+ */
+const withTransitions = (changeDOM: () => void) => {
+  const untypedDoc = document as any;
+
+  if (untypedDoc.startViewTransition) {
+    // Only use the new API if supported by the browser.
+    untypedDoc.startViewTransition(() => {
+      // Change needs to be performed synchonously so that the before & after states
+      // can be observed by the API.
+      flushSync(() => {
+        changeDOM();
+      });
+    });
+  } else {
+    changeDOM();
+  }
+};
 
 function App() {
   const [tasks, setTasks] = useState<TaskInfo[]>([]);
 
-  const addTask = (newTask: TaskInfo) => setTasks([...tasks, newTask]);
+  const addTask = (newTask: TaskInfo) =>
+    withTransitions(() => setTasks([...tasks, newTask]));
 
   const removeTask = (task: TaskInfo) =>
-    setTasks(tasks.filter((x) => x.id !== task.id));
+    withTransitions(() => setTasks(tasks.filter((x) => x.id !== task.id)));
 
   const toggleDone = (task: TaskInfo) =>
-    setTasks(
-      tasks.map((x) =>
-        x.id === task.id ? { ...x, isChecked: !x.isChecked } : x
+    withTransitions(() =>
+      setTasks(
+        tasks.map((x) =>
+          x.id === task.id ? { ...x, isChecked: !x.isChecked } : x
+        )
       )
     );
 
@@ -29,11 +54,8 @@ function App() {
       </header>
       <main className="flex flex-col gap-2 px-2 mx-auto max-w-lg">
         <NewTask createTask={addTask} />
-        <section
-          id="allTasks"
-          className="flex flex-col gap-3 justify-between mt-16"
-        >
-          <div className="flex flex-row gap-2 items-center mb-4">
+        <section id="allTasks" className="flex flex-col mt-16">
+          <div className="flex flex-row gap-2 items-center mb-6">
             <h2 className="font-bold text-blue">All Tasks</h2>
             <Pill hidden value={String(tasks.length)} />
             <div className="flex-1" />
@@ -50,7 +72,10 @@ function App() {
               <EmptyPage />
             </>
           ) : (
-            <ol>
+            <ol
+              className="flex flex-col gap-3 mt-2"
+              style={{ viewTransitionName: "mylist" }}
+            >
               {tasks
                 .filter((x) => !x.isChecked)
                 .map((task) => (
