@@ -1,17 +1,20 @@
-name: Build & Test Project
+name: Build & Test
 
 # Run at least build when targeting dev or master
 on:
-  pull_request:
-
   pull_request_target:
     types:
       - opened
       - edited
       - closed
     branches:
-      - "dev"
-      - "master"
+      - dev
+      - master
+
+  push:
+    branches:
+      - dev
+      - master
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -21,6 +24,7 @@ permissions:
 
 jobs:
   build:
+    name: Build Artifact
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -48,8 +52,9 @@ jobs:
           path: ./dist
 
   deploy:
-    # Only deploy on master after a merge
-    # if: github.pull_request.merged == true && github.ref == 'refs/heads/master'
+    name: Deploy to Github Pages
+    # Only deploy on master
+    if: github.ref == 'refs/heads/master'
     needs: build
 
     environment:
