@@ -49,7 +49,7 @@ jobs:
 
   deploy:
     # Only deploy on master after a merge
-    if: github.pull_request.merged == true && github.ref == 'refs/heads/master'
+    # if: github.pull_request.merged == true && github.ref == 'refs/heads/master'
     needs: build
 
     # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
