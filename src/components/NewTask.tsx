@@ -30,14 +30,14 @@ export const NewTask = ({ createTask }: NewTaskProps) => {
 
   return (
     <form
-      className="flex flex-row gap-2 justify-center w-full h-14"
+      className="flex flex-row gap-2 justify-center -mt-6 w-full h-12"
       onSubmit={handleSubmit(handleNewTask)}
     >
       <label className="sr-only" htmlFor="taskDesc">
         Task Description:
       </label>
       <input
-        className="flex-1 p-3 rounded-lg border text-grey100 bg-grey500 border-grey700"
+        className="flex-1 p-3 w-24 rounded-lg border text-grey100 bg-grey500 border-grey700"
         type="text"
         id="taskDesc"
         placeholder="What's your next task?"
