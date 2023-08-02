@@ -52,7 +52,7 @@ function App() {
           <span className="text-purple">do</span>
         </h1>
       </header>
-      <main className="flex flex-col gap-2 px-2 mx-auto max-w-lg">
+      <main className="flex flex-col gap-2 px-3 mx-auto max-w-xl">
         <NewTask createTask={addTask} />
         <section id="allTasks" className="flex flex-col mt-16">
           <div className="flex flex-row gap-2 items-center mb-6">
